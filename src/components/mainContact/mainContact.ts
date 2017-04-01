@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ContactService} from "../../service/contactService";
 
 @Component ({
   templateUrl: 'mainContact.html'
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
 
 export class MainContactComponent {
 
-  constructor(){}
+  contacts;
+  constructor(private contactService: ContactService){
+    this.contacts = contactService.contacts;
+  }
+
+
 }

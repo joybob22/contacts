@@ -6,13 +6,16 @@ import { RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import {CreateContactComponent} from "../components/createContact/createContact";
 import {MainContactComponent} from "../components/mainContact/mainContact";
+import {SpecificContactComponent} from "../components/specificContact/specificContact";
+import {ContactService} from "../service/contactService";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateContactComponent,
-    MainContactComponent
+    MainContactComponent,
+    SpecificContactComponent
   ],
   imports: [
     BrowserModule,
@@ -21,11 +24,12 @@ import {MainContactComponent} from "../components/mainContact/mainContact";
     RouterModule.forRoot([
       { path: 'createContact', component: CreateContactComponent },
       { path: 'mainContact', component: MainContactComponent },
+      { path: 'contact/:id', component: SpecificContactComponent },
       { path: '', redirectTo: 'mainContact', pathMatch: 'full'}
       // { path: '**', component: PageNotFoundComponent}
     ], {useHash: true})
   ],
-  providers: [],
+  providers: [ContactService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
