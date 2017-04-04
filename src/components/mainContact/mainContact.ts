@@ -7,10 +7,13 @@ import {ContactService} from "../../service/contactService";
 
 export class MainContactComponent {
 
-  contacts;
+  contacts = [];
   constructor(private contactService: ContactService){
-    this.contacts = contactService.contacts;
+    contactService.getContacts().then((newInfo) => {
+      this.contacts = newInfo;
+    });
   }
+
 
 
 }

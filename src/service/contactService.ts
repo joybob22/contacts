@@ -1,41 +1,29 @@
 import {Injectable} from "@angular/core";
-
+import {Http, RequestOptions, Headers} from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 
 
 export class ContactService {
 
-  contacts = [
-    {
-      firstName: 'Jim',
-      lastName: 'McDonald',
-      phoneNumber: '801-123-6549',
-      address: '101 London Bridge Dr. Provo Ut. 84043'
-    },
-    {
-      firstName: 'Sally',
-      lastName: 'McDonald',
-      phoneNumber: '861-183-6539',
-      address: '102 London Bridge Dr. Provo Ut. 84543'
-    },
-    {
-      firstName: 'Bob',
-      lastName: 'Jacob',
-      phoneNumber: '808-223-6649',
-      address: '103 London Bridge Dr. Provo Ut. 34043'
-    },
-    {
-      firstName: 'Mac',
-      lastName: 'Donalds',
-      phoneNumber: '301-127-6449',
-      address: '104 London Bridge Dr. Provo Ut. 85643'
-    },
-    {
-      firstName: 'Wendy',
-      lastName: 'McFarland',
-      phoneNumber: '851-843-6367',
-      address: '105 London Bridge Dr. Provo Ut. 32043'
-    }
-  ]
+  constructor(private http: Http){}
+
+  getContacts() {
+    var stuff = this.http.get('http://localhost:3000/contacts')
+        .toPromise().then(this.extractData);
+    return stuff;
+  }
+  extractData(res) {
+    let initial = res._body;
+    initial = JSON.parse(initial);
+    initial = initial.contacts;
+    return initial;
+  }
+
+  addNewContact(data) {
+    console.log("Made it to service");
+    this.http.post('http://localhost:3000/addContact', data).toPromise().then();
+  }
 }

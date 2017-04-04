@@ -12,7 +12,9 @@ export class SpecificContactComponent {
 
   constructor(private _route: ActivatedRoute, private contactService: ContactService) {
     this.contactIndex = _route.snapshot.params['id'];
-    this.contacts = contactService.contacts;
+    contactService.getContacts().then((newInfo) => {
+      this.contacts = newInfo;
+    })
   }
 
 }

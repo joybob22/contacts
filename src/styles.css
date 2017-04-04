@@ -92,6 +92,7 @@ html {
   margin-top: 5px;
 }
 
+
 .xContacts:hover, .editContacts:hover {
   color: rgba(26,35,126,1);
   cursor: pointer;
@@ -123,4 +124,22 @@ html {
   text-align: center;
   font-weight: 300;
   margin-bottom: 20px;
+}
+
+label {
+  font-family: Helvetica;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.createInput {
+  float: right;
+  width: 75%;
+}
+
+#submitNewContact {
+  width: 200px;
+  height: 50px;
+  background-color: #1A237E;
+  color: white;
 }
