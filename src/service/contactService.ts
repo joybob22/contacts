@@ -23,7 +23,12 @@ export class ContactService {
   }
 
   addNewContact(data) {
-    console.log("Made it to service");
     this.http.post('http://localhost:3000/addContact', data).toPromise().then();
+  }
+
+  deleteContact(index) {
+    return this.http.delete('http://localhost:3000/deleteContact/' + index).toPromise().then(() => {
+      return true;
+    });
   }
 }

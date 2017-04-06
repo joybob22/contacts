@@ -2,7 +2,7 @@
   <h1 class="header mainHeader">My Contacts</h1>
   <div id="contactsContainer">
     <div *ngFor="let contact of contacts; let i = index" class="contactItem">
-      <i class="fa fa-times xContacts" aria-hidden="true"></i>
+      <i class="fa fa-times xContacts" aria-hidden="true" (click)="deleteContact(i)"></i>
       <p class="contactName" [routerLink]="['/contact', i]">{{contact.firstName}}</p>
       <p class="contactName" [routerLink]="['/contact', i]">{{contact.lastName}}</p>
       <i class="fa fa-pencil-square-o editContacts" aria-hidden="true"></i>

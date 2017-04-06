@@ -17,16 +17,29 @@ app.get('/contacts', function(req, res) {
 });
 
 app.post('/addContact', function(req,res) {
-  console.log("Made it to post");
   var contacts = getContacts();
+  var id;
   contacts = JSON.parse(contacts);
+  if(contacts.contacts[0] != undefined) {
+    id = Number(contacts.contacts[contacts.contacts.length - 1].id) + 1;
+  } else {
+    id = 0;
+  }
+  req.body.id = id;
   contacts.contacts.push(req.body);
   contacts = JSON.stringify(contacts);
   fs.writeFileSync('./contacts.json', contacts);
   res.end();
 });
 
-
+app.delete('/deleteContact/:id', function(req, res) {
+  var data = getContacts();
+  data = JSON.parse(data);
+  data.contacts.splice(req.params.id, 1);
+  data = JSON.stringify(data);
+  fs.writeFileSync('./contacts.json', data);
+  res.end();
+});
 
 
 function getContacts() {

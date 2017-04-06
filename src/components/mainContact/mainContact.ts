@@ -14,6 +14,12 @@ export class MainContactComponent {
     });
   }
 
-
+  deleteContact(index) {
+    this.contactService.deleteContact(index).then(() => {
+      this.contactService.getContacts().then((data) => {
+        this.contacts = data;
+      })
+    })
+  }
 
 }
