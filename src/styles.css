@@ -61,6 +61,11 @@ html {
   margin-top: 30px;
 }
 
+#searchbar {
+  float: right;
+  margin-bottom: 20px;
+}
+
 .contactItem {
   background-color: #303F9F;
   border: 1px solid #1A237E;

@@ -8,6 +8,7 @@ import {ContactService} from "../../service/contactService";
 export class MainContactComponent {
 
   contacts = [];
+  searchParam = "";
   constructor(private contactService: ContactService){
     contactService.getContacts().then((newInfo) => {
       this.contacts = newInfo;
@@ -20,6 +21,19 @@ export class MainContactComponent {
         this.contacts = data;
       })
     })
+  }
+
+  sortContacts() {
+    if(this.searchParam !== "") {
+      this.contactService.sortContacts(this.searchParam).then((data) => {
+        this.contacts = data;
+      })
+    } else {
+      this.contactService.getContacts().then((newInfo) => {
+        this.contacts = newInfo;
+      })
+    }
+
   }
 
 }

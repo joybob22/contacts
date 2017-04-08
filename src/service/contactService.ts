@@ -31,4 +31,11 @@ export class ContactService {
       return true;
     });
   }
+
+  sortContacts(searchParam) {
+    return this.http.put('http://localhost:3000/sortContacts/' + searchParam, searchParam).toPromise().then((res) => {
+      let contacts = JSON.parse(res['_body']);
+      return contacts;
+    })
+  }
 }
