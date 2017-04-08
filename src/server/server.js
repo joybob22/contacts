@@ -13,6 +13,15 @@ app.get('/products/:id', function (req, res, next) {
 });
 
 app.get('/contacts', function(req, res) {
+
+  var contacts = getContacts();
+
+  contacts = sortingContacts(contacts);
+
+  res.end(contacts);
+});
+
+app.get('/unsortedContacts', function(req, res) {
   res.end(getContacts());
 });
 
@@ -43,31 +52,41 @@ app.delete('/deleteContact/:id', function(req, res) {
 });
 
 app.put('/sortContacts/:searchParam', function(req, res) {
-  console.log(req.params.searchParam);
-  var newContacts = [];
+  var newContacts = {contacts:[]};
   var contacts = getContacts();
   contacts = JSON.parse(contacts);
   for(var i = 0; i < contacts.contacts.length; i++) {
     for(var j in contacts.contacts[i]) {
-      if(contacts.contacts[i][j].indexOf(req.params.searchParam.toLowerCase()) != -1 || contacts.contacts[i][j].indexOf(req.params.searchParam.toUpperCase()) != -1 || contacts.contacts[i][j].indexOf(req.params.searchParam) != -1) {
-        newContacts.push(contacts.contacts[i]);
-        break;
+      if(j == 'firstName' || j == 'lastName') {
+        if(contacts.contacts[i][j].toLowerCase().indexOf(req.params.searchParam.toLowerCase()) != -1 ) {
+          newContacts.contacts.push(contacts.contacts[i]);
+          break;
+        }
       }
     }
   }
-  res.end(JSON.stringify(newContacts));
+  newContacts = JSON.stringify(newContacts);
+  newContacts = sortingContacts(newContacts);
+  res.end(newContacts);
 });
 
+app.put('/editContact', function(req, res) {
+  var contact = JSON.stringify(req.body);
+  fs.writeFileSync('./contacts.json', contact);
+  res.end();
+});
 
 
 
 function getContacts() {
   var contacts = fs.readFileSync('./contacts.json', 'utf-8');
 
+
+  return contacts;
+}
+
+function sortingContacts(contacts) {
   contacts = JSON.parse(contacts);
-  if("bruce" < "wendy") {
-    console.log("bruce is less than wendy");
-  }
   for(var i = 0; i < contacts.contacts.length; i++) {
     for(var j = 0; j < contacts.contacts.length - 1; j++) {
       var place;
@@ -86,8 +105,6 @@ function getContacts() {
     }
   }
   contacts = JSON.stringify(contacts);
-
-
   return contacts;
 }
 

@@ -22,6 +22,14 @@ export class ContactService {
     return initial;
   }
 
+  getUnsortedContacts() {
+    return this.http.get('http://localhost:3000/unsortedContacts').toPromise().then((data) => {
+      let contacts = data['_body'];
+      contacts = JSON.parse(contacts);
+      return contacts.contacts;
+    })
+  }
+
   addNewContact(data) {
     this.http.post('http://localhost:3000/addContact', data).toPromise().then();
   }
@@ -35,7 +43,14 @@ export class ContactService {
   sortContacts(searchParam) {
     return this.http.put('http://localhost:3000/sortContacts/' + searchParam, searchParam).toPromise().then((res) => {
       let contacts = JSON.parse(res['_body']);
+      contacts = contacts.contacts;
       return contacts;
+    })
+  }
+
+  editContact(contacts) {
+    return this.http.put('http://localhost:3000/editContact', contacts, contacts).toPromise().then((res) => {
+      return true;
     })
   }
 }

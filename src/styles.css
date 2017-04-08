@@ -159,3 +159,11 @@ label {
   cursor: pointer;
   background-color: #303F9F;
 }
+
+.updateContact {
+  float:left;
+  font-family: Helvetica;
+  background-color: #1A237E;
+  padding: 10px 20px;
+  margin-top: 5px;
+}

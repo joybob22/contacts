@@ -6,7 +6,7 @@
       <i class="fa fa-times xContacts" aria-hidden="true" (click)="deleteContact(contact.id)"></i>
       <p class="contactName" [routerLink]="['/contact', contact.id]">{{contact.firstName}}</p>
       <p class="contactName" [routerLink]="['/contact', contact.id]">{{contact.lastName}}</p>
-      <i class="fa fa-pencil-square-o editContacts" aria-hidden="true"></i>
+      <i class="fa fa-pencil-square-o editContacts" aria-hidden="true" [routerLink]="['/editContact', contact.id]"></i>
     </div>
   </div>
 </div>
